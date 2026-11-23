@@ -31,7 +31,7 @@ Membuat deck 16:9 (1920×1080) dengan gaya visual deck "Technical Meetup CRS Eco
 
 ## Notulensi FGD (tipe `notulensi`)
 
-Satu slide per bidang FGD: eyebrow `FGD 01 · NOTULENSI`, judul `Hasil FGD <Bidang>` dengan nama bidang berwarna bidang, tiga kartu (Lokasi · PJ · Notulis), lalu kotak **Catatan**. Contoh lengkap: `examples/notulensi-fgd.json`.
+Satu slide per bidang FGD: eyebrow `FGD 01 · NOTULENSI`, judul `Hasil FGD <Bidang>` dengan nama bidang berwarna biru (sama seperti deck informasi), tiga kartu (Lokasi · PJ · Notulis), lalu kotak **Catatan**. Contoh lengkap: `examples/notulensi-fgd.json`.
 
 ### Format isi Catatan: Heading → Sub-heading → Poin
 
@@ -48,7 +48,8 @@ Susun catatan mentah dari pengguna menjadi struktur ini, supaya rapi dan mudah d
 ]
 ```
 
-- **Heading** = topik besar yang dibahas (2–5 kata, tanpa titik). Diberi nomor otomatis 01, 02, …
+- **Heading** = topik besar yang dibahas (2–5 kata, tanpa titik). Diberi nomor otomatis 01, 02, … dalam badge berwarna bidang.
+- Warna: eyebrow, aksen judul, label CATATAN, sub-heading dan titik poin memakai biru utama; warna bidang hanya untuk badge nomor heading.
 - **Sub-heading** (`sub[].judul`) = aspek dari topik. Pola yang dianjurkan: *Kondisi saat ini*, *Usulan*, *Kesepakatan*, *Tindak lanjut*, *PIC & tenggat*. Boleh dilewati bila topiknya sederhana (pakai `poin` langsung di bawah heading).
 - **Poin** = satu gagasan per poin, kalimat pendek tanpa titik di akhir, maksimal ±15 kata. Mulai dengan kata kerja atau subjek yang jelas.
 - Jangan mengarang isi. Rapikan bahasa dan kelompokkan saja; jika ada bagian yang tidak jelas, tanyakan ke pengguna.

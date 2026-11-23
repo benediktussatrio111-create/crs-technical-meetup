@@ -379,7 +379,7 @@ def render_kolom(potongan):
     html = []
     for tp in potongan:
         lanj = '<span class="lanj">(lanjutan)</span>' if tp["lanjutan"] else ""
-        parts = [f'<div class="topik"><h3><span class="no tint">{e(tp["no"])}</span><span>{e(tp["heading"])}{lanj}</span></h3>']
+        parts = [f'<div class="topik"><h3><span class="no badge">{e(tp["no"])}</span><span>{e(tp["heading"])}{lanj}</span></h3>']
         for b in tp["bl"]:
             li = "".join(f"<li>{e(t)}</li>" for t in b["poin"])
             if b["sub"] is None:
@@ -398,8 +398,8 @@ def s_notulensi(s, ev):
     meta = "".join(f'<div class="mcard"><p class="k">{k}</p><p class="v">{e(s.get(f))}</p></div>'
                    for k, f in (("Lokasi", "lokasi"), ("PJ", "pj"), ("Notulis", "notulis")))
     kolom = s.get("_kolom") or [[]]
-    return (f"notul {cls}", f'<div class="head"><div class="l"><p class="eyebrow ct">FGD {e(nomor)} · Notulensi{" · Lanjutan" if s.get("_lanjutan") else ""}</p>'
-            f'<h2 class="title">{e(s.get("judul", "Hasil FGD"))} <span class="ct">{e(s.get("nama", s.get("bidang", "…")))}</span></h2></div></div>'
+    return (f"notul {cls}", f'<div class="head"><div class="l"><p class="eyebrow">FGD {e(nomor)} · Notulensi{" · Lanjutan" if s.get("_lanjutan") else ""}</p>'
+            f'<h2 class="title">{e(s.get("judul", "Hasil FGD"))} <span class="accent">{e(s.get("nama", s.get("bidang", "…")))}</span></h2></div></div>'
             f'<div class="meta">{meta}</div>'
             f'<div class="notes"><p class="k">Catatan</p><div class="body" style="--cols:{s.get('_ncol', 1)}">'
             f'{"".join(render_kolom(k) for k in kolom)}</div></div>',
