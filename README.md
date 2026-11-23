@@ -30,6 +30,18 @@ python3 scripts/cek_diksi.py examples/notulensi-fgd.json
 python3 scripts/build_deck.py examples/notulensi-fgd.json notulensi.html
 ```
 
+## Pasang plugin
+
+**Claude (aplikasi desktop / claude.ai):** buka **Customize → Plugins → Add marketplace**, masukkan `benediktussatrio111-create/crs-technical-meetup`, lalu klik **Install** pada plugin `crs-technical-meetup`. Nyalakan **Sync automatically** agar selalu mendapat versi terbaru.
+
+**Claude Code:**
+
+```
+/plugin install crs-technical-meetup --marketplace benediktussatrio111-create/crs-technical-meetup
+```
+
+atau dua langkah: `/plugin marketplace add benediktussatrio111-create/crs-technical-meetup` lalu `/plugin install crs-technical-meetup@crs-ecosystem-meetup`.
+
 ## Cara pakai
 
 Minta Claude, misalnya: *"buatkan deck informasi umum untuk Technical Meetup bulan depan"*.

@@ -1,0 +1,14 @@
+{
+  "name": "crs-ecosystem-meetup",
+  "description": "Marketplace CRS Ecosystem: deck informasi acara dan notulensi FGD",
+  "owner": {
+    "name": "CRS Ecosystem"
+  },
+  "plugins": [
+    {
+      "name": "crs-technical-meetup",
+      "source": "./",
+      "description": "Membuat deck informasi acara 16:9 bergaya CRS Ecosystem (cover, venue, rundown, FGD, peserta, petugas, syarat, rooming, penutup) dan slide notulensi FGD (Heading · Sub-heading · Poin, dengan cek diksi negatif) dari satu file data JSON."
+    }
+  ]
+}
