@@ -1,0 +1,86 @@
+{
+  "acara": {
+    "nama": "Technical Meetup",
+    "organisasi": "CRS Ecosystem",
+    "tahun": "2026",
+    "tanggal": "Selasa, 24 November 2026",
+    "tanggal_hari": "24",
+    "jam": "08.30 – 17.00 WIB",
+    "tempat": "Aruss Hotel",
+    "maps_url": "https://maps.google.com/?q=Aruss+Hotel+Semarang"
+  },
+  "slides": [
+    { "type": "cover" },
+    {
+      "type": "venue",
+      "tanggal_label": "Selasa, 24 November 2026",
+      "dress_code": "Atasan hitam formal",
+      "ruangan": "Ruang Progo",
+      "lantai": "Lantai 5"
+    },
+    {
+      "type": "rundown",
+      "rows": [
+        { "waktu": "08.30 – 09.00", "acara": "Coffee Break", "pic": "Tim Konsumsi" },
+        { "waktu": "09.00 – 09.05", "acara": "Pembukaan", "pic": "MC" },
+        { "waktu": "09.05 – 09.35", "acara": "Informasi Umum", "pic": "Om Berly" },
+        { "waktu": "09.35 – 10.30", "acara": "Diskusi Distribusi Market", "pic": "Tim Penguji" },
+        { "waktu": "10.30 – 12.00", "acara": "FGD paralel: Produksi · Marketing · Financial · SDM", "pic": "Wahyu Aji · Dimas · Rio · Sobri", "highlight": true },
+        { "waktu": "12.00 – 13.00", "acara": "Ishoma", "pic": "Tim Konsumsi" },
+        { "waktu": "13.00 – 15.00", "acara": "Pemaparan Hasil FGD", "pic": "Wahyu Aji · Dimas · Rio · Sobri", "highlight": true },
+        { "waktu": "15.00 – 15.30", "acara": "Coffee Break", "pic": "Tim Konsumsi" },
+        { "waktu": "15.30 – 17.00", "acara": "Penguatan Om iLik", "pic": "–" },
+        { "waktu": "17.00 – selesai", "acara": "Penutupan", "pic": "MC" }
+      ]
+    },
+    {
+      "type": "bidang",
+      "sesi": "Paralel · 10.30–12.00 WIB",
+      "bidang": [
+        { "id": "produksi", "nama": "Produksi", "lokasi": "Resto Lt. 11 · Indoor", "deskripsi": "Gaya seni, lisensi, alur kerja (TAT), dan pengelolaan kelas produksi.", "pj": "Wahyu Aji", "notulis": "Luthfi" },
+        { "id": "marketing", "nama": "Marketing", "lokasi": "Ruang Progo · Lt. 5", "deskripsi": "Riset market, diferensiasi dan penyiapan market, serta pengelolaan kelas marketing.", "pj": "Dimas", "notulis": "Hafizh" },
+        { "id": "financial", "nama": "Financial", "lokasi": "Resto Lt. 3 · Indoor", "deskripsi": "Laporan keuangan, weekly update, penggajian tim dan pembayaran freelance, serta perencanaan finansial studio.", "pj": "Rio", "notulis": "Bela" },
+        { "id": "sdm", "nama": "SDM", "lokasi": "Resto Lt. 3 · Outdoor", "deskripsi": "Pemetaan profil talenta, orientasi, kontrak kerja, NDA, cuti, serta hak dan kewajiban talent dan studio.", "pj": "Sobri", "notulis": "Ika" }
+      ]
+    },
+    {
+      "type": "peserta",
+      "total": 33,
+      "asal": { "Semarang": 12, "Solo": 4, "Salatiga": 5, "Jogja": 12 },
+      "kelompok": [
+        { "id": "produksi", "nama": "Produksi", "pj": "Wahyu Aji", "notulis": "Luthfi", "anggota": ["Wahyu Aji", "Luthfi", "Mas Sukma", "Mas Hilmy", "Luluk", "Yudha", "Wahyu Budi"] },
+        { "id": "marketing", "nama": "Marketing", "pj": "Dimas", "notulis": "Hafizh", "anggota": ["Dimas", "Hafizh", "Alam", "Hendra", "Wina", "Rani", "Verdi", "Difa", "Sigli", "Hadi"] },
+        { "id": "financial", "nama": "Financial", "pj": "Rio", "notulis": "Bela", "anggota": ["Rio", "Bela", "Mbak Dian", "Pia", "Dinda", "Eka", "Nana"] },
+        { "id": "sdm", "nama": "SDM", "pj": "Sobri", "notulis": "Ika", "anggota": ["Sobri", "Ika", "Sonya", "Adit", "Biru", "Devon", "Aza", "Fido"] }
+      ]
+    },
+    {
+      "type": "petugas",
+      "petugas": [
+        { "peran": "Notulensi Acara", "nama": "Bela", "tugas": "Saat FGD menjadi notulen kelompok Financial" },
+        { "peran": "Operator", "nama": "Hafizh", "tugas": "Saat FGD menjadi notulen kelompok Marketing" },
+        { "peran": "Runner", "nama": "Exsel, Sabil, Dino", "tugas": "Membantu kelancaran acara di semua sesi" }
+      ]
+    },
+    {
+      "type": "daftar",
+      "eyebrow": "Syarat Studio",
+      "judul": "Masuk ke",
+      "aksen": "Setiap Platform",
+      "kolom": [
+        { "judul": "VGen", "poin": ["Memiliki tim produksi (ilustrator)", "Mampu berkomunikasi dalam bahasa Inggris", "Memahami budaya & etika komunitas artist"] },
+        { "judul": "Fiverr", "poin": ["Akun terverifikasi atas 1 identitas (KTP, nomor HP aktif, satu akun per orang)", "Portofolio dan niche yang spesifik", "Workflow lancar dengan komunikasi bahasa Inggris yang responsif"] },
+        { "judul": "Etsy", "poin": ["Memiliki device khusus untuk menjalankan 1 akun Etsy", "Memiliki modal untuk ads dan mempersiapkan listing", "Memahami bahasa Inggris"] }
+      ]
+    },
+    {
+      "type": "rooming",
+      "pengumuman": "Detail nomor kamar dibagikan Hari H",
+      "gelombang": [
+        { "tanggal": "Senin & Selasa, 23–24 Nov", "info": "2 malam · 11 kamar", "kamar": ["Sobri & Dinda", "Bella & Alam", "Dimas & Verdy", "Wahyu B & Luthfi", "Difa & Eka", "Aza & Wahyu A", "Luluk & Sonya", "Nana & Ika", "Devond & Sigli", "Yudha & Hadi", "Adit & Hafizh"] },
+        { "tanggal": "Selasa, 24 Nov", "info": "1 malam · 5 kamar", "kamar": ["Om Berly & Mba Dian", "Rani, Wina & Pia", "Hendra & Fido", "Biru & Hilmy", "Sukma & Rio"], "catatan": "Biaya hotel di-reimburse oleh masing-masing studio setelah acara." }
+      ]
+    },
+    { "type": "penutup" }
+  ]
+}
