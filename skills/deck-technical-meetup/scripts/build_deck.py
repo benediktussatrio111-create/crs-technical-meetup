@@ -310,14 +310,126 @@ def s_rooming(s, ev):
             f'<div class="grid" style="grid-template-columns:{tmpl};align-items:start">{"".join(c for _, c in cards)}</div>', False)
 
 
+# ---------------------------------------------------------------- notulensi
+# catatan: [{"heading": "...", "poin": [...], "sub": [{"judul": "...", "poin": [...]}]}]
+# Tinggi tiap blok diperkirakan (px, kanvas 1920x1080) lalu diisi ke kolom
+# secara berurutan: 1 kolom lebar bila muat, 2 kolom bila tidak, lalu slide
+# lanjutan. Dengan begitu teks tidak pernah terpotong.
+KAP_KOLOM = 378                 # tinggi area isi Catatan (terukur 384px)
+CHAR_1KOL, CHAR_2KOL = 115, 52  # perkiraan karakter per baris poin (24px Inter)
+H_BARIS, H_HEAD, H_SUB = 35, 64, 50
+
+
+def _baris(teks, lebar):
+    return max(1, -(-len(str(teks)) // lebar))
+
+
+def _blok(tp, lebar):
+    """Pecah topik menjadi (tinggi_heading, [blok]) — blok = poin langsung atau satu sub-heading."""
+    hh = H_HEAD + 38 * (_baris(tp.get("heading", ""), lebar - 4) - 1)
+    out = []
+    if tp.get("poin"):
+        out.append({"sub": None, "poin": tp["poin"], "h": sum(H_BARIS * _baris(t, lebar) for t in tp["poin"])})
+    for sb in tp.get("sub") or []:
+        out.append({"sub": sb.get("judul", ""), "poin": sb.get("poin") or [],
+                    "h": H_SUB + 32 * (_baris(sb.get("judul", ""), lebar) - 1)
+                    + sum(H_BARIS * _baris(t, lebar) for t in sb.get("poin") or [])})
+    return hh, out
+
+
+def _isi_kolom(catatan, lebar):
+    """Kembalikan list kolom; tiap kolom = list potongan topik."""
+    kolom, cur, pakai = [], [], 0
+    for tp in catatan:
+        hh, bl = _blok(tp, lebar)
+        potong = None
+        for b in bl or [{"sub": None, "poin": [], "h": 0}]:
+            perlu = b["h"] + (hh if potong is None else 0)
+            if cur and pakai + perlu > KAP_KOLOM:
+                kolom.append(cur); cur, pakai = [], 0
+                lanj = potong is not None
+                potong = None
+                perlu = b["h"] + hh
+            else:
+                lanj = False
+            if potong is None:
+                potong = {"no": tp.get("no"), "heading": tp.get("heading", ""), "bl": [],
+                          "lanjutan": lanj or any(x["heading"] == tp.get("heading") and x["no"] == tp.get("no")
+                                                  for k in kolom for x in k)}
+                cur.append(potong)
+            potong["bl"].append(b)
+            pakai += perlu
+    if cur:
+        kolom.append(cur)
+    return kolom or [[]]
+
+
+def bagi_catatan(catatan):
+    """List halaman; tiap halaman = (jumlah_kolom, [kolom])."""
+    satu = _isi_kolom(catatan, CHAR_1KOL)
+    if len(satu) == 1:
+        return [(1, satu)]
+    dua = _isi_kolom(catatan, CHAR_2KOL)
+    return [(2, dua[i:i + 2]) for i in range(0, len(dua), 2)]
+
+
+def render_kolom(potongan):
+    if not potongan:
+        return '<div class="kol"><ul class="poin flat"><li class="kosong">…</li></ul></div>'
+    html = []
+    for tp in potongan:
+        lanj = '<span class="lanj">(lanjutan)</span>' if tp["lanjutan"] else ""
+        parts = [f'<div class="topik"><h3><span class="no tint">{e(tp["no"])}</span><span>{e(tp["heading"])}{lanj}</span></h3>']
+        for b in tp["bl"]:
+            li = "".join(f"<li>{e(t)}</li>" for t in b["poin"])
+            if b["sub"] is None:
+                parts.append(f'<ul class="poin flat">{li}</ul>')
+            else:
+                parts.append(f'<div class="sub"><h4>{e(b["sub"])}</h4><ul class="poin">{li}</ul></div>')
+        parts.append("</div>")
+        html.append("".join(parts))
+    return '<div class="kol">' + "".join(html) + "</div>"
+
+
+def s_notulensi(s, ev):
+    w = s.get("warna", s.get("id", "blue"))
+    cls = kelas(w)
+    nomor = s.get("nomor", "01")
+    meta = "".join(f'<div class="mcard"><p class="k">{k}</p><p class="v">{e(s.get(f))}</p></div>'
+                   for k, f in (("Lokasi", "lokasi"), ("PJ", "pj"), ("Notulis", "notulis")))
+    kolom = s.get("_kolom") or [[]]
+    return (f"notul {cls}", f'<div class="head"><div class="l"><p class="eyebrow ct">FGD {e(nomor)} · Notulensi{" · Lanjutan" if s.get("_lanjutan") else ""}</p>'
+            f'<h2 class="title">{e(s.get("judul", "Hasil FGD"))} <span class="ct">{e(s.get("nama", s.get("bidang", "…")))}</span></h2></div></div>'
+            f'<div class="meta">{meta}</div>'
+            f'<div class="notes"><p class="k">Catatan</p><div class="body" style="--cols:{s.get('_ncol', 1)}">'
+            f'{"".join(render_kolom(k) for k in kolom)}</div></div>',
+            "notul")
+
+
+def expand(slides):
+    """Pecah slide notulensi panjang menjadi beberapa halaman."""
+    out = []
+    for s in slides:
+        if s.get("type") != "notulensi":
+            out.append(s)
+            continue
+        cat = s.get("catatan") or []
+        for i, tp in enumerate(cat, 1):
+            tp.setdefault("no", f"{i:02d}")
+        for j, (ncol, kolom) in enumerate(bagi_catatan(cat)):
+            out.append(dict(s, _ncol=ncol, _kolom=kolom, _lanjutan=j > 0))
+    return out
+
+
 LAYOUT = {"cover": s_cover, "venue": s_venue, "rundown": s_rundown, "bidang": s_bidang, "peserta": s_peserta,
-          "petugas": s_petugas, "daftar": s_daftar, "rooming": s_rooming, "penutup": s_penutup}
+          "petugas": s_petugas, "daftar": s_daftar, "rooming": s_rooming, "penutup": s_penutup,
+          "notulensi": s_notulensi}
 
 
 def build(data):
     ev = data["acara"]
     ev.setdefault("organisasi", "CRS Ecosystem")
-    slides = data["slides"]
+    slides = expand(data["slides"])
     total = len(slides)
     out = []
     for i, s in enumerate(slides, 1):
@@ -326,6 +438,8 @@ def build(data):
         cls, body, foot = LAYOUT[s["type"]](s, ev)
         if foot == "brand":
             f = f'<p class="foot brand">{e(ev["organisasi"]).upper()}</p>'
+        elif foot == "notul":
+            f = f'<p class="foot">Notulensi FGD · {e(ev["nama"])} {e(ev["organisasi"])}</p>'
         elif s["type"] == "cover":
             f = ""
         else:

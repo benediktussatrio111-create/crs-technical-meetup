@@ -36,6 +36,7 @@ Hampir semua slide memakai pola **eyebrow** (label kapital biru) + **judul** + *
 | `daftar` | Kolom berjudul dengan poin bernomor 01, 02, … (syarat, aturan, checklist) | `kolom`: `[{judul, poin: [], warna?}]` (2–4 kolom, maks ±4 poin) |
 | `rooming` | Pembagian kamar per gelombang | `pengumuman` (pill kuning), `gelombang`: `[{tanggal, info, kamar: [], catatan?}]` |
 | `penutup` | "Terima kasih" besar + chip + ilustrasi kerumunan | `judul`, `aksen` |
+| `notulensi` | Hasil FGD satu bidang: kartu Lokasi · PJ · Notulis + kotak Catatan | `nomor` ("01"), `id`/`warna`, `nama`, `lokasi`, `pj`, `notulis`, `judul` (default "Hasil FGD"), `catatan`: `[{heading, poin?, sub?: [{judul, poin}]}]` — dibagi otomatis ke 2 kolom / slide lanjutan. Footer: "Notulensi FGD · {acara}" |
 
 Tipe boleh dipakai lebih dari sekali, dalam urutan apa pun, dan boleh dihilangkan.
 

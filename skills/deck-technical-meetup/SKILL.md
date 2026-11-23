@@ -1,6 +1,6 @@
 ---
 name: deck-technical-meetup
-description: Membuat deck informasi acara 16:9 bergaya CRS Ecosystem (cover, venue, rundown, FGD per bidang, peserta, petugas, syarat/daftar, rooming hotel, penutup). Gunakan saat pengguna meminta "deck Technical Meetup", "slide informasi umum acara", "branding kit informasi umum", atau materi info acara CRS Ecosystem.
+description: Membuat deck 16:9 bergaya CRS Ecosystem, baik deck informasi acara (cover, venue, rundown, FGD, peserta, petugas, syarat, rooming, penutup) maupun slide notulensi FGD berformat Heading, Sub-heading, Poin dengan cek diksi negatif. Gunakan untuk "deck Technical Meetup", "informasi umum acara", "notulensi FGD", atau "rapikan notulen".
 ---
 
 # Deck Informasi Acara (CRS Ecosystem)
@@ -10,6 +10,8 @@ Membuat deck 16:9 (1920×1080) dengan gaya visual deck "Technical Meetup CRS Eco
 ## Isi skill
 
 - `scripts/build_deck.py` — mengubah `data.json` menjadi satu file HTML mandiri (hanya pustaka standar Python).
+- `scripts/cek_diksi.py` — menandai diksi berkonotasi negatif di catatan notulensi beserta opsi penggantinya (tidak mengubah file).
+- `references/diksi.json` — daftar diksi negatif → opsi yang lebih positif.
 - `references/schema.md` — struktur data dan 9 tipe slide. **Baca dulu sebelum menyusun data.**
 - `references/deck.css` — gaya bersama (disisipkan otomatis oleh skrip).
 - `references/tokens.json` — token sistem desain CRS Ecosystem (warna, tipografi, spasi, radius).
@@ -26,6 +28,47 @@ Membuat deck 16:9 (1920×1080) dengan gaya visual deck "Technical Meetup CRS Eco
 4. Buka/render hasilnya dan periksa setiap slide: teks tidak terpotong, tabel rundown dan kolom peserta tidak meluber. Jika terlalu padat, pecah menjadi dua slide dengan tipe yang sama.
 5. Serahkan deck: publikasikan sebagai artifact (HTML) bila tersedia, atau kirim file HTML. Untuk PDF, buka di Chrome → Print → Save as PDF (ukuran mengikuti 1920×1080, margin None, background graphics aktif).
 6. Jika sesi menawarkan tipe Slides dan pengguna ingin bisa mengedit langsung, susun dek dengan tipe Slides memakai `references/tokens.json` dan pola tata letak yang sama.
+
+## Notulensi FGD (tipe `notulensi`)
+
+Satu slide per bidang FGD: eyebrow `FGD 01 · NOTULENSI`, judul `Hasil FGD <Bidang>` dengan nama bidang berwarna bidang, tiga kartu (Lokasi · PJ · Notulis), lalu kotak **Catatan**. Contoh lengkap: `examples/notulensi-fgd.json`.
+
+### Format isi Catatan: Heading → Sub-heading → Poin
+
+Susun catatan mentah dari pengguna menjadi struktur ini, supaya rapi dan mudah dipahami:
+
+```json
+"catatan": [
+  { "heading": "Laporan Keuangan Studio",
+    "sub": [
+      { "judul": "Kondisi saat ini", "poin": ["…", "…"] },
+      { "judul": "Kesepakatan",      "poin": ["…", "…"] }
+    ] },
+  { "heading": "Kelas Marketing", "poin": ["…", "…"] }
+]
+```
+
+- **Heading** = topik besar yang dibahas (2–5 kata, tanpa titik). Diberi nomor otomatis 01, 02, …
+- **Sub-heading** (`sub[].judul`) = aspek dari topik. Pola yang dianjurkan: *Kondisi saat ini*, *Usulan*, *Kesepakatan*, *Tindak lanjut*, *PIC & tenggat*. Boleh dilewati bila topiknya sederhana (pakai `poin` langsung di bawah heading).
+- **Poin** = satu gagasan per poin, kalimat pendek tanpa titik di akhir, maksimal ±15 kata. Mulai dengan kata kerja atau subjek yang jelas.
+- Jangan mengarang isi. Rapikan bahasa dan kelompokkan saja; jika ada bagian yang tidak jelas, tanyakan ke pengguna.
+- Catatan kosong (`[]`) tampil sebagai satu poin "…" untuk diisi manual.
+- Isi panjang otomatis dibagi ke 2 kolom, lalu ke slide lanjutan (`FGD 03 · NOTULENSI · LANJUTAN`) tanpa terpotong.
+
+### Wajib: cek diksi berkonotasi negatif sebelum membuat deck
+
+1. Setelah catatan tersusun, jalankan:
+   ```bash
+   python3 scripts/cek_diksi.py data.json
+   ```
+   Lalu baca juga seluruh catatan sendiri: nada negatif bisa muncul tanpa kata yang ada di daftar (mis. menyalahkan orang tertentu, sindiran, kalimat yang menghakimi).
+2. **Jangan mengganti diksi secara diam-diam.** Tampilkan setiap temuan ke pengguna dalam format:
+   > **[1] Financial › Laporan Keuangan › Kondisi saat ini**
+   > "Laporan beberapa studio sering *telat* masuk"
+   > Opsi: (a) melewati jadwal · (b) belum tepat waktu · (c) perlu penyesuaian jadwal · (d) biarkan apa adanya
+   Berikan 2–3 opsi yang lebih positif tetapi tetap jujur dan tidak mengubah fakta, plus opsi untuk membiarkan. Bila AskUserQuestion tersedia, pakai pilihan ganda per temuan (maks 4 per pertanyaan).
+3. Terapkan pilihan pengguna, lalu baru jalankan `build_deck.py`. Jika pengguna memilih membiarkan, jangan tanyakan kata yang sama lagi di sesi itu.
+4. Daftar kata dan opsinya ada di `references/diksi.json`; tambahkan entri baru bila pengguna menyebut diksi lain yang ingin dihindari.
 
 ## Aturan gaya
 

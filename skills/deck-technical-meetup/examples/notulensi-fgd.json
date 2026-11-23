@@ -1,0 +1,63 @@
+{
+  "acara": {
+    "nama": "Technical Meetup",
+    "organisasi": "CRS Ecosystem",
+    "tanggal": "Selasa, 24 November 2026",
+    "tempat": "Aruss Hotel"
+  },
+  "slides": [
+    {
+      "type": "notulensi", "nomor": "01", "id": "produksi", "nama": "Produksi",
+      "lokasi": "Resto Lt. 11 · Indoor", "pj": "…", "notulis": "…",
+      "catatan": []
+    },
+    {
+      "type": "notulensi", "nomor": "02", "id": "marketing", "nama": "Marketing",
+      "lokasi": "Ruang Progo · Lt. 5", "pj": "Dimas", "notulis": "Hafizh",
+      "catatan": [
+        {
+          "heading": "Riset Market",
+          "sub": [
+            { "judul": "Temuan", "poin": ["Permintaan ilustrasi karakter naik menjelang akhir tahun", "Klien baru paling banyak datang dari VGen"] },
+            { "judul": "Tindak lanjut", "poin": ["Setiap studio mengumpulkan 5 referensi kompetitor per bulan"] }
+          ]
+        },
+        {
+          "heading": "Kelas Marketing",
+          "poin": ["Kelas dibuka ulang bulan Januari", "Materi difokuskan pada listing dan copywriting"]
+        }
+      ]
+    },
+    {
+      "type": "notulensi", "nomor": "03", "id": "financial", "nama": "Financial",
+      "lokasi": "Resto Lt. 3 · Indoor", "pj": "Rio", "notulis": "Bela",
+      "catatan": [
+        {
+          "heading": "Laporan Keuangan Studio",
+          "sub": [
+            { "judul": "Kondisi saat ini", "poin": ["Format laporan antar studio masih berbeda-beda", "Sebagian studio sudah rutin mengisi weekly update", "Laporan beberapa studio belum masuk tepat waktu"] },
+            { "judul": "Kesepakatan", "poin": ["Semua studio memakai satu template laporan bulanan", "Laporan dikirim paling lambat tanggal 5 setiap bulan", "Koordinator wilayah mengecek kelengkapan laporan"] }
+          ]
+        },
+        {
+          "heading": "Penggajian & Pembayaran Freelance",
+          "sub": [
+            { "judul": "Alur pembayaran", "poin": ["Pembayaran freelance dilakukan setelah revisi terakhir disetujui klien", "Bukti transfer diarsipkan di folder bersama studio"] },
+            { "judul": "Catatan", "poin": ["Perlu jadwal gajian tim yang sama di semua studio", "Biaya admin platform dicatat terpisah dari biaya produksi"] }
+          ]
+        },
+        {
+          "heading": "Perencanaan Finansial",
+          "sub": [
+            { "judul": "Target kuartal depan", "poin": ["Setiap studio menyusun anggaran sederhana per kuartal", "Dana cadangan disisihkan dari setiap proyek", "Evaluasi bersama di Technical Meetup berikutnya"] }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "notulensi", "nomor": "04", "id": "sdm", "nama": "SDM",
+      "lokasi": "Resto Lt. 3 · Outdoor", "pj": "…", "notulis": "…",
+      "catatan": []
+    }
+  ]
+}
